@@ -164,17 +164,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatPhoneInput() {
         let value = phoneInput.value.replace(/\D/g, '');
-        if (!value.startsWith('375')) value = '375' + value;
-        
-        let formatted = '+375 ';
-        if (value.length > 3) formatted += '(' + value.slice(3, 5);
-        if (value.length >= 5) formatted += ') ' + value.slice(5, 8);
-        if (value.length >= 8) formatted += '-' + value.slice(8, 10);
-        if (value.length >= 10) formatted += '-' + value.slice(10, 12);
-        
-        phoneInput.value = formatted;
-    }
 
+        value = value.slice(0, 12);
+
+        let format= "";
+
+        if (value.length > 0) {
+            format += "+" + value.substring(0, 3);
+        }
+        if (value.length >= 4) {
+            format += " (" + value.substring(3, 5);
+        }
+        if (value.length >= 6) {
+            format += ") " + value.substring(5, 8);
+        }
+        if (value.length >= 9) {
+            format += "-" + value.substring(8, 10);
+        }
+        if (value.length >= 11) {
+            format += "-" + value.substring(10, 12);
+        }
+
+        phoneInput.value = format;
+    }
 
     function hideSuccessModal() {
         const modal = document.getElementById('SuccessModal');
